@@ -38,8 +38,8 @@ fi
 model=$(cat /sys/class/nvme/$device/model)
 fw=$(cat /sys/class/nvme/$device/firmware_rev)
 
-model='WD_BLACK SN850X HS 2000GB'
-fw="620241WD"
+#model='WD_BLACK SN850X HS 2000GB'
+#fw="620241WD"
 
 echo "Device $device model \"$model\" firmware version \"$fw\""
 
