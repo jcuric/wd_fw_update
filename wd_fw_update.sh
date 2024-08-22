@@ -35,8 +35,8 @@ if [ -z "$device" ]; then
         exit 1
 fi
 
-model=$(cat /sys/class/nvme/$device/model)
-fw=$(cat /sys/class/nvme/$device/firmware_rev)
+model=$(cat /sys/class/nvme/$device/model|xargs)
+fw=$(cat /sys/class/nvme/$device/firmware_rev|xargs)
 
 #model='WD_BLACK SN850X HS 2000GB'
 #fw="620241WD"
@@ -74,6 +74,12 @@ fi
 echo Lastest firmware: $fwversion
 echo Lastest firmware file: $fwfile
 echo Lastest firmware dependancies: $depends
+
+if [ "$fwversion" == "$fw" ]; then
+	echo "Already on latest firmware"
+	exit 0
+fi
+
 if [[ "${depends[@]}" =~ "${fw}" ]]; then
 	fwurl=$wdhost/${deviceurl%/*}/$fwfile
 	echo "Downloading firmware file $fwfile from $fwurl"
